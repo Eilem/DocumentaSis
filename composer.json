@@ -1,0 +1,28 @@
+{
+    "name"          : "eilem/documentaction",
+    "description"   : "Projeto para controle de documentação de projeto",
+    "licence"       : "MIT",
+    
+    "autors"        : [
+                        {
+                            "name": "Eilem Gomes",
+                            "email": "eilem.rei@gmail.com"
+                        }
+    ],
+            
+    "minimun-stability" :   "stable",
+    
+    "require"   :   {
+        "doctrine/orm"      :   "*",
+        "slim/slim"         :   "2.*",
+        "phpunit/phpunit"   :   "4.2"
+    },
+    
+    "autoload" : {
+            "psr-0" : {
+                  "" : "src" ,
+                  "Teste" : "src/DocumentaSis" 
+            }
+    }    
+    
+}

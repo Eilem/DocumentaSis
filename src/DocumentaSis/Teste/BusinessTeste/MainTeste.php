@@ -7,12 +7,13 @@ use PHPUnit_Framework_TestCase;
 /**
  * Classe Principal de teste que herda classe de teste do Framework PHPUnit
  */
-class MainTeste extends PHPUnit_Framework_TestCase{
+abstract class MainTeste extends \PHPUnit_Framework_TestCase{
+    
     
     public function setUp() {
         
     }
-
+    
     /**
     * 
     * @param string $nomedaClasse
@@ -26,17 +27,21 @@ class MainTeste extends PHPUnit_Framework_TestCase{
         
     }*/
     
-    public function testSoma() {
-        $this->assertTrue(TRUE);
-    }
-    
-    
-    
-    
-    
-    
-    
-    
+    /**
+     * verificar se o objeto é realmente uma instância da Classe
+     * @param Class $classe
+     * @param Objeto $objeto
+     */
+    public function testarSeTipoDoObjetoInstanciadoEIgualAClasse($classe , $objeto) {
+ 
+        $this->assertInstanceOf(
+                $classe,
+                $objeto,
+                'objeto não é da da classe'.$classe
+        );
+
+     }
+
     public function tearDown() {
         
     }

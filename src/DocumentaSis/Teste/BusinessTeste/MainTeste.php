@@ -9,9 +9,11 @@ use PHPUnit_Framework_TestCase;
  */
 abstract class MainTeste extends \PHPUnit_Framework_TestCase{
     
-    
+    /**
+     * "Pré-condições" para realização do Teste
+     */
     public function setUp() {
-        
+                
     }
     
     /**
@@ -24,15 +26,27 @@ abstract class MainTeste extends \PHPUnit_Framework_TestCase{
                 class_exists($CaminhoNomeDaClasse), 
                 'Classe não Localizada'.$CaminhoNomeDaClasse
                 );
-        
-    }*/
+    }
+    */
+    
     
     /**
-     * verificar se o objeto é realmente uma instância da Classe
+     * Verifica se a classe recebida por parâmetro Existe
+     * @param string $classe
+     */
+    public function testarSeClasseExiste( $classe ){      
+        $this->assertTrue(
+                class_exists($classe), 
+                'Classe não existe'.$classe
+        );
+    }
+    
+    /**
+     * Verificar se o objeto é realmente uma instância da Classe 
      * @param Class $classe
      * @param Objeto $objeto
      */
-    public function testarSeTipoDoObjetoInstanciadoEIgualAClasse($classe , $objeto) {
+    public function testarSeTipoDoObjetoInstanciadoEIgualAClasse( $classe , $objeto ){
  
         $this->assertInstanceOf(
                 $classe,
@@ -42,8 +56,12 @@ abstract class MainTeste extends \PHPUnit_Framework_TestCase{
 
      }
 
+     /**
+     * "Destrói" as pré condições definidas em SetUp
+     * utilizado para "limpar" a memória para evitar erros em outras classes de 
+     * testes que se utilizem de instãncias da mesma classe, porem com valores diferentes
+     */
     public function tearDown() {
-        
+                
     }
-
 }

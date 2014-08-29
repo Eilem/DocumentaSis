@@ -5,6 +5,12 @@
  */
 namespace DocumentaSis\Core\Model\Business;
 
+use DocumentaSis\Core\Model\Business\Software as DocumentacaoDeSoftware,
+    DocumentaSis\Core\Model\Business\Teste as DocumentacaoDeTeste;
+
+/**
+ * Classe que representa a entidade Projeto
+ */
 class Projeto{
  
     /**
@@ -31,11 +37,13 @@ class Projeto{
      */
     public $dataCriacao;
 
-
+    #################################
+    #ver!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     /**
      * variáveis de relacionamento com projeto e documentação
      * implementar quando tiver as classes criadas
      */
+    ###########################
     
     /**
      * coleção de documentações que o Projeto possui
@@ -55,15 +63,32 @@ class Projeto{
      */
     public $documentacaoDeSoftware;
     
-    
+    /**
+     * 
+     * @return type
+     */
     public function obterId() {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return type
+     */
     public function obterNome() {
         return $this->nome;
     }
-
+    
+    /**
+     * 
+     * @param type $nome
+     * @return \DocumentaSis\Core\Model\Business\Projeto
+     */
+    public function definirNome($nome) {
+        $this->nome = $nome;
+        return $this;
+    }
+    
     /**
      * 
      * @return type
@@ -74,48 +99,6 @@ class Projeto{
     
     /**
      * 
-     * @return \DateTime
-     */
-    public function obterDataCriacao() {
-        return $this->dataCriacao;
-    }
-    
-    /**
-     * 
-     * @return type
-     */
-    public function obterColDocumentacao() {
-        return $this->colDocumentacao;
-    }
-
-    /**
-     * 
-     * @return type
-     */
-    public function obterDocumentacaoTeste() {
-        return $this->documentacaoTeste;
-    }
-
-    /**
-     * 
-     * @return type
-     */
-    public function obterDocumentacaoSoftware() {
-        return $this->documentacaoSoftware;
-    }
-
-    /**
-     * 
-     * @param type $nome
-     * @return \DocumentaSis\Core\Model\Business\Projeto
-     */
-    public function definirNome($nome) {
-        $this->nome = $nome;
-        return $this;
-    }
-
-    /**
-     * 
      * @param type $descricao
      * @return \DocumentaSis\Core\Model\Business\Projeto
      */
@@ -123,13 +106,93 @@ class Projeto{
         $this->descricao = $descricao;
         return $this;
     }
-
+    
     /**
      * 
      * @param \DateTime $dataCriacao
+     * @return \DocumentaSis\Core\Model\Business\Projeto
+     * @throws \InvalidArgumentException
      */
-    public function definirDataCriacao(\DateTime $dataCriacao) {
+    public function definirDataCriacao(\DateTime $dataCriacao)
+    {
+        if ($dataCriacao > (new \DateTime())) {
+            throw new \InvalidArgumentException("A Data de Criação do Projeto não pode ser uma data futura!");
+        }
         $this->dataCriacao = $dataCriacao;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function obterDataCriacao()
+    {
+        if (! $this->dataHoraCriacao instanceof \DateTime) {
+            $this->dataHoraCriacao = new \DateTime();
+        }
+        return $this->$dataCriacao;
+    }    
+
+//   Anterior
+//     public function obterColDocumentacao() {
+//        return $this->colDocumentacao;
+//    }
+       /**
+     * Obtem a coleção de documentação que o projeto possui
+     * @return array
+     *  
+     * @todo fazer verificação se só possui uma doc de cada tipo
+     */
+    public function obterColDocumentacao(){
+        $colDocumentacao = array();        
+        
+        $docSoftware = $this->obterDocumentacaoDeSoftware();
+        $docTeste = $this->obterDocumentacaoDeTeste();   
+        
+        if( $docTeste && $docTeste instanceof DocTeste ){
+            $colDocumentacao[] = $docTeste ;
+        }        
+        if( $docSoftware && $docSoftware instanceof DocSoftware ){
+            $colDocumentacao[] = $docSoftware ;
+        }   
+        return $colDocumentacao;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function obterDocumentacaoDeTeste() {
+        return $this->documentacaoDeTeste;
+    }
+        
+    /**
+     * 
+     * @param \DocumentaSis\Core\Model\Business\Teste $documentacaoDeTeste
+     * @return \DocumentaSis\Core\Model\Business\Projeto
+     */
+    public function definirDocumentacaoDeTeste(DocumentacaoDeTeste $documentacaoDeTeste) {
+        $this->documentacaoDeTeste = $documentacaoDeTeste;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function obterDocumentacaoDeSoftware() {
+        return $this->documentacaoDeSoftware;
+    }
+    
+    /**
+     * 
+     * @param \DocumentaSis\Core\Model\Business\Software $documentacaoDeSoftware
+     * @return \DocumentaSis\Core\Model\Business\Projeto
+     */
+    public function definirDocumentacaoDeSoftware(DocumentacaoDeSoftware $documentacaoDeSoftware) {
+        $this->documentacaoDeSoftware = $documentacaoDeSoftware;
+        return $this;
     }
 
     /**
@@ -142,25 +205,5 @@ class Projeto{
         return $this;
     }
 
-    /**
-     * 
-     * @param type $documentacaoTeste
-     * @return \DocumentaSis\Core\Model\Business\Projeto
-     */
-    public function definirDocumentacaoTeste($documentacaoTeste) {
-        $this->documentacaoTeste = $documentacaoTeste;
-        return $this;
-    }
 
-    /**
-     * 
-     * @param type $documentacaoSoftware
-     * @return \DocumentaSis\Core\Model\Business\Projeto
-     */
-    public function definirDocumentacaoSoftware($documentacaoSoftware) {
-        $this->documentacaoSoftware = $documentacaoSoftware;
-        return $this;
-    }
-
-    
 }

@@ -5,7 +5,7 @@
  */
 namespace DocumentaSis\Core\Model\Business;
 
-class Software{
+class Software extends Documentacao{
     
     
 }

@@ -5,8 +5,6 @@
  */
 namespace DocumentaSis\Core\Model\Business;
 
-class Teste{
-    
-    
-    
+class Teste extends Documentacao{
+
 }

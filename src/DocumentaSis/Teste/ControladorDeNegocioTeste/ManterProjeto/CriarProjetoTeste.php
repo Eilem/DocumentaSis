@@ -15,7 +15,6 @@ class CriarProjetoTeste{
         #comparar se nome de algum projeto é igual ao q estám tentando inserir
         # false se já existir
         #true se não existir
-        
-        
+
     }
 }

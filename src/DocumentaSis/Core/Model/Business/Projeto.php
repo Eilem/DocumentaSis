@@ -53,15 +53,15 @@ class Projeto{
     
     /**
      *
-     * @var TIPO È DOCUMNETAÇÂO DE TESTE
+     * @var \DocumentaSis\Core\Model\Business\Teste
      */
     public $documentacaoDeTeste;
     
     /**
      * Documentação de Software que pertence ao projeto
-     * @var Documentação de Software 
+     * @var \DocumentaSis\Core\Model\Business\Teste
      */
-    public $documentacaoDeSoftware;
+    public $documentacaoDeSoftware;        
     
     /**
      * 
@@ -132,31 +132,6 @@ class Projeto{
             $this->dataHoraCriacao = new \DateTime();
         }
         return $this->$dataCriacao;
-    }    
-
-//   Anterior
-//     public function obterColDocumentacao() {
-//        return $this->colDocumentacao;
-//    }
-       /**
-     * Obtem a coleção de documentação que o projeto possui
-     * @return array
-     *  
-     * @todo fazer verificação se só possui uma doc de cada tipo
-     */
-    public function obterColDocumentacao(){
-        $colDocumentacao = array();        
-        
-        $docSoftware = $this->obterDocumentacaoDeSoftware();
-        $docTeste = $this->obterDocumentacaoDeTeste();   
-        
-        if( $docTeste && $docTeste instanceof DocTeste ){
-            $colDocumentacao[] = $docTeste ;
-        }        
-        if( $docSoftware && $docSoftware instanceof DocSoftware ){
-            $colDocumentacao[] = $docSoftware ;
-        }   
-        return $colDocumentacao;
     }
 
     /**
@@ -195,15 +170,29 @@ class Projeto{
         return $this;
     }
 
-    /**
-     * 
-     * @param type $colDocumentacao
-     * @return \DocumentaSis\Core\Model\Business\Projeto
+    //   Anterior
+//     public function obterColDocumentacao() {
+//        return $this->colDocumentacao;
+//    }
+       /**
+     * Obtem a coleção de documentação que o projeto possui
+     * @return array
+     *  
+     * @todo fazer verificação se só possui uma doc de cada tipo
      */
-    public function definirColDocumentacao($colDocumentacao) {
-        $this->colDocumentacao = $colDocumentacao;
-        return $this;
+    public function obterColDocumentacao(){
+        $colDocumentacao = array();            
+        
+        $docSoftware = $this->obterDocumentacaoDeSoftware();
+        $docTeste = $this->obterDocumentacaoDeTeste();
+        
+        if( $docTeste && $docTeste instanceof DocumentacaoDeTeste ){
+            $colDocumentacao[] = $docTeste ;
+        }        
+        if( $docSoftware && $docSoftware instanceof DocumentacaoDeSoftware ){
+            $colDocumentacao[] = $docSoftware ;
+        }
+        return $colDocumentacao; 
     }
-
 
 }

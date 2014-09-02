@@ -1,6 +1,6 @@
 <?php
 
-class CriarProjetoTeste{
+class NegocioProjetoTeste{
     
     
     public function testInserirNovoProjetoComNomeDeProjetoJaExistente() {
@@ -17,4 +17,24 @@ class CriarProjetoTeste{
         #true se não existir
 
     }
+      
+    public function testCriarNovoProjeto() {
+       #persistencia! 
+    }
+    
+    public function testEditarProjeto() {
+        
+    }
+        
+    public function testEditarNomeProjeto() {
+        
+    }
+    
+    public function testObterProjetoPorId() {
+        
+    }
+  
+    
+    
+    
 }

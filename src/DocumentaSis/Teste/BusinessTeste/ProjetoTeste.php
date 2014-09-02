@@ -107,7 +107,7 @@ class ProjetoTest extends \PHPUnit_Framework_TestCase{
         $objetoRetornado = $this->projeto->definirNome( $nome );
         
         #verifica se objeto retornado é o mesmo objeto passado
-        $this->assertEquals(
+        $this->assertSame(
                         $this->projeto,
                         $objetoRetornado,
                         'Valor do Objeto retornado ao definir nome é diferente do objeto esperado!'
@@ -116,7 +116,7 @@ class ProjetoTest extends \PHPUnit_Framework_TestCase{
         # verifica se nome passado é igual ao nome que está no objeto        
         $this->assertEquals( 
                         $nome,
-                        $this->projeto->obterNome(),
+                        $objetoRetornado->obterNome(),
                         'Atributo Nome do projeto não contém valor igual ao valor nome esperado!'
         );        
         
@@ -152,6 +152,7 @@ class ProjetoTest extends \PHPUnit_Framework_TestCase{
     /**
      * 
      * @depends testVerificarExistenciaDoMetodoObterNome
+     *
      * @todo verificar se em definirNome lançará uma excesão com nome nulo
      * @todo implementar 
      */
@@ -161,23 +162,22 @@ class ProjetoTest extends \PHPUnit_Framework_TestCase{
         
         $this->markTestIncomplete('Teste definir nome nulo ainda não foi implementado');
     }
-
     
     /**
      * @depends testVerificarExistenciaDoMetodoDefinirNome
      */
     public function testDefinirDescricaoDoProjeto() {
         
-        $descricao = "Descrevendo um projeto: Como o Porjeto deve ser desenvolvido...etc...";
+        $descricao = "Descrevendo um projeto: Como o Projeto deve ser desenvolvido...etc...";
         $retorno = $this->projeto->definirNome( $descricao );
         
-          $this->assertEquals( 
+        $this->assertEquals( 
                         $descricao,
                         $retorno->obterNome(),
                         'Atributo Descrição do projeto não contém o mesmo do valor que lhe foi atribuído!'
         ); 
           
-        $this->assertEquals(
+        $this->assertSame(
                         $this->projeto,
                         $retorno,
                         'Valor do Objeto retornado ao definir nome é diferente do objeto esperado!'
@@ -210,9 +210,7 @@ class ProjetoTest extends \PHPUnit_Framework_TestCase{
                         $objetoRetornado->obterDescricao(),
                         'valor do Atributo Descrição do Projeto retornado não é igual ao valor definido!'
         );
-    }
-
-    
+    }    
     
     /**
      * @depends testVerificarExistenciaDoMetodoDefinirDocumentacaoDeTeste
@@ -220,28 +218,55 @@ class ProjetoTest extends \PHPUnit_Framework_TestCase{
     public function testDefinirDocumentacaoDeTeste() {
         
         $teste = new \DocumentaSis\Core\Model\Business\Teste();
-        $this->projeto->definirDocumentacaoDeTeste($teste);
+        $retorno = $this->projeto->definirDocumentacaoDeTeste($teste);
         
-        $this->assertEquals(
-                        $this->projeto->obterDocumentacaoDeTeste(),
+        $this->assertSame(
+                        $retorno->obterDocumentacaoDeTeste(),
                         $teste,
-                        'Objeto teste diferente do objeto definido !'
+                        'Documentação de teste definida diferente da instância o objeto documentação de teste que consta no Projeto!'
         );
         
+        $this->assertSame(
+                        $this->projeto,
+                        $retorno,
+                        'Objeto Projeto retornado ao definirDocumentacaoDeTeste é diferente do objeto esperado !'
+        ); 
     }
-        
+    
     /**
      * @depends testVerificarExistenciaDoMetodoObterDocumentacaoDeTeste
      */
     public function testObterDocumentacaoDeTeste() {
         
+        $teste = new \DocumentaSis\Core\Model\Business\Teste();
+        $retorno = $this->projeto->definirDocumentacaoDeTeste($teste);
+        
+        $this->assertSame(
+                        $teste,
+                        $retorno->obterDocumentacaoDeTeste(),
+                        'Objeto teste diferente do objeto definido !'
+        );
     }
     
     /**
      * @depends testVerificarExistenciaDoMetodoObterDocumentacaoDeSoftware
      */
-    public function testdefinirDocumentacaoDeSoftware() {
+    public function testDefinirDocumentacaoDeSoftware() {
         
+        $software = new \DocumentaSis\Core\Model\Business\Software();
+        $retorno = $this->projeto->definirDocumentacaoDeSoftware($software);
+        
+        $this->assertSame(
+                        $retorno->obterDocumentacaoDeSoftware(),
+                        $software,
+                        'Documentação de Software definida é diferente da instância do objeto que consta no Projeto!'
+        );
+        
+        $this->assertSame(
+                        $this->projeto,
+                        $retorno,
+                        'Objeto Projeto retornado ao definirDocumentacaoDeSoftware é diferente do objeto esperado !'
+        ); 
     }
     
     /**
@@ -249,20 +274,46 @@ class ProjetoTest extends \PHPUnit_Framework_TestCase{
      */
     public function testObterDocumentacaoDeSoftware() {
         
+        $software = new \DocumentaSis\Core\Model\Business\Software();
+        $retorno = $this->projeto->definirDocumentacaoDeSoftware($software);
+        
+        $this->assertSame(
+                        $software,
+                        $retorno->obterDocumentacaoDeSoftware(),
+                        'Intância de Software definida em projeto é diferente da esperada!'
+        );
     }
     
     /**
      * @depends testVerificarExistenciaDoMetodoObterDocumentacaoDeSoftware
      */
     public function testObterColDocumentacaoDoProjeto() {
-    
-    }
+        
+        $docTeste = new \DocumentaSis\Core\Model\Business\Teste();
+        $docSoftware = new \DocumentaSis\Core\Model\Business\Software();
+        $documentacaoDoProjeto = array(
+            $docTeste,
+            $docSoftware
+        );
+        
+        $this->projeto->definirDocumentacaoDeTeste($docTeste);
+        $this->projeto->definirDocumentacaoDeSoftware($docSoftware);
+        
+        $colDocumentacao = $this->projeto->obterColDocumentacao();
+        
+        $this->assertEquals(
+                            $colDocumentacao,
+                            $colDocumentacao, 
+                            'coleção do projeto não é igual aos dados definidos!'
+        );
+    } 
     
     /**
      * @depends testVerificarExistenciaDoMetodoObterDocumentacaoDeSoftware
      */
     public function testObterColDocumentacaoVaziaDoProjeto() {
         
+        #objeto projeto doi instanciado vazio, porém nenhum 
         $this->assertEmpty($this->projeto->obterColDocumentacao(), 
                            'Coleçaõ de Documentação do Projeto não está vazia. '
         );

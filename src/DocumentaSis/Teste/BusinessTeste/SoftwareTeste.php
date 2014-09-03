@@ -36,8 +36,7 @@ class SoftwareTeste extends PHPUnit_Framework_TestCase{
 
     public function testRemoverCasoDeUso() {
                 
-    }    
-    
+    }
     
     /**
      * "Destrói" as pré condições definidas em SetUp

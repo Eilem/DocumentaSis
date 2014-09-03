@@ -90,6 +90,20 @@ class ProjetoTest extends \PHPUnit_Framework_TestCase{
         );
     }
     
+    public function testVerificarExistenciaDoMetodoObterDataCriacao() {
+        $this->assertTrue(
+                        method_exists($this->projeto, 'obterDataCriacao'),
+                        'Método definirDataCriacao não localizado ou não existente em Projeto'
+        );
+    }
+    
+    public function testVerificarExistenciaDoMetododefinirDataCriacao() {
+        $this->assertTrue(
+                        method_exists($this->projeto, 'definirDataCriacao'),
+                        'Método definirDataCriacao não localizado ou não existente em Projeto'
+        );
+    }
+    
     public function testVerificarExistenciaDoMetodoObterColDocumentacao() {
         $this->assertTrue(
                         method_exists($this->projeto, 'obterColDocumentacao'),
@@ -154,7 +168,7 @@ class ProjetoTest extends \PHPUnit_Framework_TestCase{
      * @depends testVerificarExistenciaDoMetodoObterNome
      *
      * @todo verificar se em definirNome lançará uma excesão com nome nulo
-     * @todo implementar 
+     * @todo implementar
      */
     public function testExceptionDefinirNomeDeProjetoNulo() {
         $nome = NULL;
@@ -302,7 +316,7 @@ class ProjetoTest extends \PHPUnit_Framework_TestCase{
         $colDocumentacao = $this->projeto->obterColDocumentacao();
         
         $this->assertEquals(
-                            $colDocumentacao,
+                            $documentacaoDoProjeto,
                             $colDocumentacao, 
                             'coleção do projeto não é igual aos dados definidos!'
         );
@@ -319,6 +333,37 @@ class ProjetoTest extends \PHPUnit_Framework_TestCase{
         );
     }    
     
+    public function testDefinirDataDeCriacao() {
+        $data = new \DateTime();
+        $retorno = $this->projeto->definirDataCriacao($data);
+        
+        $this->assertSame(
+                        $data,
+                        $retorno->obterDataCriacao(),
+                        'Data de Criação do Projeto é direfente da data esperada!'
+        );
+    }
+    
+    public function testObterDataDeCriacao() {
+        $data = new \DateTime();
+        $retorno = $this->projeto->definirDataCriacao($data);
+        
+        $this->assertSame(
+                        $data,
+                        $retorno->obterDataCriacao(),
+                        'Data de criação do Projeto obtida não é a igual a esperada!'
+        );
+    }
+    
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testFailedDefinirDataDeCriacaoMaiorQueDataAtual(){
+        
+        $this->projeto->definirDataCriacao(new \DateTime('+1day'));
+                
+    }
+
     /**
      * "Destrói" as pré condições definidas em SetUp
      * utilizado para "limpar" a memória para evitar erros em outras classes de 

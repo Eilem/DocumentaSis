@@ -36,23 +36,15 @@ class Projeto{
      * @var \DateTime
      */
     public $dataCriacao;
-
-    #################################
-    #ver!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    /**
-     * variáveis de relacionamento com projeto e documentação
-     * implementar quando tiver as classes criadas
-     */
-    ###########################
     
     /**
-     * coleção de documentações que o Projeto possui
-     * @var TIPO È DOCUMENTAÇÂO
+     * Coleção de documentações que o Projeto possui
+     * @var \DocumentaSis\Core\Model\Business\Software
      */
     public $colDocumentacao;
     
     /**
-     *
+     * Documentação de Teste que pertence ao projeto
      * @var \DocumentaSis\Core\Model\Business\Teste
      */
     public $documentacaoDeTeste;
@@ -90,7 +82,7 @@ class Projeto{
     }
     
     /**
-     * 
+     * Obtém a Descrição do Projeto
      * @return type
      */
     public function obterDescricao() {
@@ -98,7 +90,7 @@ class Projeto{
     }
     
     /**
-     * 
+     * Define a descrição do Projeto
      * @param type $descricao
      * @return \DocumentaSis\Core\Model\Business\Projeto
      */
@@ -108,44 +100,44 @@ class Projeto{
     }
     
     /**
-     * 
+     * Define a data de criação do Projeto
      * @param \DateTime $dataCriacao
      * @return \DocumentaSis\Core\Model\Business\Projeto
      * @throws \InvalidArgumentException
      */
-    public function definirDataCriacao(\DateTime $dataCriacao)
-    {
-        if ($dataCriacao > (new \DateTime())) {
-            throw new \InvalidArgumentException("A Data de Criação do Projeto não pode ser uma data futura!");
+    public function definirDataCriacao(\DateTime $dataCriacao){
+        if( $dataCriacao > ( new \DateTime() ) ) {
+            throw new \InvalidArgumentException("A Data de Criação do Projeto não pode ser maior que a data atual!");
         }
         $this->dataCriacao = $dataCriacao;
         return $this;
     }
 
     /**
-     * 
-     * @return type
+     * Obtém a Data de Criação do Projeto
+     * @return \DateTime
      */
-    public function obterDataCriacao()
-    {
-        if (! $this->dataHoraCriacao instanceof \DateTime) {
-            $this->dataHoraCriacao = new \DateTime();
+    public function obterDataCriacao(){
+        if( ! $this->dataCriacao instanceof \DateTime ){
+            $this->dataCriacao = new \DateTime();
         }
-        return $this->$dataCriacao;
+        return $this->dataCriacao;
     }
 
     /**
-     * 
-     * @return type
+     * Obtém a documentação de Teste que pertence ao Projeto
+     * @return \DocumentaSis\Core\Model\Business\Teste
      */
-    public function obterDocumentacaoDeTeste() {
+    public function obterDocumentacaoDeTeste(){
         return $this->documentacaoDeTeste;
     }
         
     /**
-     * 
+     * Define a Documentação de Teste do projeto
      * @param \DocumentaSis\Core\Model\Business\Teste $documentacaoDeTeste
      * @return \DocumentaSis\Core\Model\Business\Projeto
+     * 
+     * @todo relacionamento na classe de dependência
      */
     public function definirDocumentacaoDeTeste(DocumentacaoDeTeste $documentacaoDeTeste) {
         $this->documentacaoDeTeste = $documentacaoDeTeste;
@@ -153,28 +145,26 @@ class Projeto{
     }
     
     /**
-     * 
-     * @return type
+     * Obtém a documentação de Teste que pertence ao Projeto
+     * @return \DocumentaSis\Core\Model\Business\Software
      */
     public function obterDocumentacaoDeSoftware() {
         return $this->documentacaoDeSoftware;
     }
     
     /**
-     * 
+     * Define a Documentação de Software do Projeto
      * @param \DocumentaSis\Core\Model\Business\Software $documentacaoDeSoftware
      * @return \DocumentaSis\Core\Model\Business\Projeto
+     * 
+     * @todo relacionamento na classe de dependencia
      */
     public function definirDocumentacaoDeSoftware(DocumentacaoDeSoftware $documentacaoDeSoftware) {
         $this->documentacaoDeSoftware = $documentacaoDeSoftware;
         return $this;
     }
 
-    //   Anterior
-//     public function obterColDocumentacao() {
-//        return $this->colDocumentacao;
-//    }
-       /**
+    /**
      * Obtem a coleção de documentação que o projeto possui
      * @return array
      *  

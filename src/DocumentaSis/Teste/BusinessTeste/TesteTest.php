@@ -26,7 +26,7 @@ class TesteTest extends \PHPUnit_Framework_TestCase{
      */
     public function testDefinirNome(){
         $nome = 'Documentação de Teste X';
-        $retorno = $this->object->definirNome( '$nome' );
+        $retorno = $this->object->definirNome( $nome );
         
         $this->assertSame($this->object,
                           $retorno,
@@ -61,7 +61,7 @@ class TesteTest extends \PHPUnit_Framework_TestCase{
         
         $nome = 'Documentação de Teste X';
         $retorno = $this->object->definirNome($nome);
-                
+        
         $this->assertEquals(
                         $nome,
                         $retorno->obterNome(),

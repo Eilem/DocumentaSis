@@ -7,7 +7,6 @@ namespace DocumentaSis\Core\Model\Business;
 
 abstract class Documentacao{
     
-    
     public $id;
      
     public $projeto;
@@ -15,13 +14,12 @@ abstract class Documentacao{
     public $nome;
     
     /**
-     * 
+     * Obtém a Identificação da Documentação 
      * @return int
      */
     public function obterId() {
         return $this->id;
     }
-
     
     /**
      *  Obtem o Nome da Documentação

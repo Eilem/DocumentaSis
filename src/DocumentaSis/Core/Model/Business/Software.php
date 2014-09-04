@@ -8,5 +8,11 @@ namespace DocumentaSis\Core\Model\Business;
 class Software extends Documentacao{
     
     
+    public $colCasoDeUso;
+    
+    
+    public function adicionarCasoDeUso(){
+        return $this;
+    }
     
 }

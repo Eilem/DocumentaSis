@@ -15,4 +15,8 @@ class Software extends Documentacao{
         return $this;
     }
     
+    public function definirColCasoDeUso(){
+        return $this;
+    }
+    
 }

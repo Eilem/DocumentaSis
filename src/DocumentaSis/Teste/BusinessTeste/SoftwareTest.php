@@ -53,31 +53,65 @@ class SoftwareTest extends DocumentacaoTest{
         die;
     }    
     
-    /**
-     * @dataProvider dataProviderDados
-     */
-    public function testAdicionarCasoDeUso($dados){
+    
+    public function testAdicionarCasoDeUso(){
         
-        var_dump($dados);
+        $outroCSU = new \DocumentaSis\Core\Model\Business\CasoDeUso();
         
-        $x = $this->object->adicionarCasoDeUso($dados);
+        $retorno = $this->object->definirColCasoDeUso($this->colecaoCSU);
         
-        var_dump($x);
+        $docSoftware = $this->object->adicionarCasoDeUso($outroCSU);
         
-        die;
+        $this->assertSame(
+                        $docSoftware,
+                        $retorno,
+                        'Objetos de documentação de software não é o mesmo que o esperado'
+        );
         
-        return $colCSU;
+        $this->assertEquals(
+                        sizeof( $docSoftware->obterColCasoDeUso() ), 
+                        sizeof( $this->colecaoCSU + 1 ), //4 +1 = 5
+                        'Coleção de CSu diferente do esperado!'
+        );
+        
+        return $colCSU; 
     }
 
     
     public function testObterColecaoCasoDeUso() {
                 
+        $retorno = $this->object->definirColCasoDeUso($this->colecaoCSU);
+        
+        $this->assertEquals(
+                            $this->colecaoCSU,
+                            $retorno->obterColCasoDeUso(),
+                            'Coleção obtida é diferente da esperada'
+        );
     }
     
     /**
      * @depends testDefinirColecaoCasoDeUso
      */
     public function testRemoverCasoDeUso() {
+        
+        $remover = $this->colecaoCSU['csu2'];
+        
+        $retorno = $this->object->definirColCasoDeUso($this->colecaoCSU);
+        
+        $docSoftware = $this->object->removerCasoDeUso($remover);
+        
+        $this->assertSame(
+                        $docSoftware,
+                        $retorno,
+                        'Objetos de documentação de software não é o mesmo que o esperado'
+        );
+        
+        $this->assertEquals(
+                        sizeof( $docSoftware->obterColCasoDeUso() ), 
+                        sizeof( $this->colecaoCSU - 1 ), //4 +1 = 5
+                        'Coleção de CSu diferente do esperado!'
+        );
+        
         
     }
     

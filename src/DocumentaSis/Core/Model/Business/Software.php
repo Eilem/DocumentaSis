@@ -15,7 +15,9 @@ class Software extends Documentacao{
         return $this;
     }
     
-    public function definirColCasoDeUso(){
+    public function definirColCasoDeUso( array $colCSU ){
+      
+        
         return $this;
     }
     
